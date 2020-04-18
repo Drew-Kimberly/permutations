@@ -1,0 +1,17 @@
+{
+  "extends": "./node_modules/gts/",
+  "ignorePatterns": ["build/"],
+  "overrides": [
+    {
+      "files": ["src/**/*.spec.ts"],
+      "env": {
+        "jest": true
+      },
+      "plugins": ["jest"]
+    }
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/ban-ts-ignore": 0
+  }
+}

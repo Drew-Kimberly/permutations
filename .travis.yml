@@ -1,0 +1,32 @@
+language: node_js
+node_js:
+  - "stable"
+
+cache:
+  directories:
+    - node_modules
+
+notifications:
+  email:
+    - recipients:
+        - $EMAIL_ADDRESS
+
+jobs:
+  include:
+    - stage: build
+      script: npm run build
+
+    - stage: test
+      script:
+        - npm run check
+        - npm run test
+
+    - stage: publish
+      if: tag IS present
+      script: echo "Publishing package version ${TRAVIS_TAG} to NPM"
+      deploy:
+        provider: npm
+        tag: $TRAVIS_TAG
+        email: $EMAIL_ADDRESS
+        api_key: $NPM_API_KEY
+        skip_cleanup: true

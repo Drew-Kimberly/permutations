@@ -1,0 +1,35 @@
+{
+  "name": "@drewkimberly/permutations",
+  "version": "0.1.0",
+  "description": "Function to generate all permutations of data given zero or more arrays associated with properties in an object",
+  "repository": "https://github.com/Drew-Kimberly/permutations",
+  "readme": "https://github.com/Drew-Kimberly/permutations/blob/master/README.md",
+  "author": {
+    "name": "Drew Kimberly"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [],
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "test": "jest",
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "@types/node": "^10.0.3",
+    "eslint-plugin-jest": "^23.8.2",
+    "gts": "^2.0.0",
+    "jest": "^25.3.0",
+    "ts-jest": "^25.4.0",
+    "typescript": "~3.8.0"
+  }
+}
