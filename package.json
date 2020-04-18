@@ -14,6 +14,7 @@
   "license": "Apache-2.0",
   "keywords": [],
   "scripts": {
+    "build": "npm run clean && npm run compile",
     "test": "echo \"Error: no test specified\" && exit 1",
     "check": "gts check",
     "clean": "gts clean",
