@@ -17,7 +17,9 @@ jobs:
       script: npm run build
 
     - stage: test
-      script: npm run test
+      script:
+        - npm run check
+        - npm run test
 
     - stage: publish
       if: tag IS present
