@@ -26,8 +26,10 @@
     "posttest": "npm run check"
   },
   "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "@types/node": "^10.0.3",
     "gts": "^2.0.0",
-    "typescript": "~3.8.0",
-    "@types/node": "^10.0.3"
+    "jest": "^25.3.0",
+    "typescript": "~3.8.0"
   }
 }
