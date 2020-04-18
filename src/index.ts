@@ -1,6 +1,6 @@
-export const generatePermutations = (
-  obj: Record<string | number, any>
-): Record<string | number, any>[] => {
+import {Permutable, Permutation} from './interfaces';
+
+export const generatePermutations = (obj: Permutable): Permutation[] => {
   console.log(obj);
   return [];
 };
