@@ -2,7 +2,8 @@
   "name": "@drewkimberly/permutations",
   "version": "0.1.0",
   "description": "Function to generate all permutations of data given zero or more arrays associated with properties in an object",
-  "homepage": "https://github.com/Drew-Kimberly/permutations",
+  "repository": "https://github.com/Drew-Kimberly/permutations",
+  "readme": "https://github.com/Drew-Kimberly/permutations/blob/master/README.md",
   "author": {
     "name": "Drew Kimberly"
   },
