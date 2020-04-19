@@ -1,4 +1,10 @@
-import {MapKeys, Permutable, Permutation} from './interfaces';
+import {
+  ComplexPermutable,
+  MapKeys,
+  Permutable,
+  Permutation,
+  SplitPermutable,
+} from './interfaces';
 
 const isObjectLiteral = (obj: any): boolean =>
   obj === Object(obj) && obj.constructor === {}.constructor;
@@ -8,20 +14,18 @@ const incrementPermutationCountForValue = (
   value: Array<any>
 ): number => currentCount * value.length;
 
-const getTotalPermutationCount = (obj: Permutable): number =>
-  Object.values(obj)
-    .filter(val => Array.isArray(val) && val.length > 1)
-    .reduce(incrementPermutationCountForValue, 1);
+const getTotalPermutationCount = (obj: ComplexPermutable): number =>
+  Object.values(obj).reduce(incrementPermutationCountForValue, 1);
 
 const permutationFn = (
   key: MapKeys,
   value: any,
-  currentPermutations: Permutable[],
+  currentPermutations: Permutation[],
   sequenceLength: number
 ): Permutable[] => {
   let currentSequence = 0;
   return currentPermutations.map((permutation, idx) => {
-    const newPermutations = {
+    const newPermutation = {
       ...permutation,
       [key]: value[currentSequence % value.length],
     };
@@ -30,7 +34,7 @@ const permutationFn = (
       currentSequence++;
     }
 
-    return newPermutations;
+    return newPermutation;
   });
 };
 
@@ -38,6 +42,53 @@ const calculateSequenceLength = (
   value: any[],
   previousSequenceLength: number
 ): number => previousSequenceLength / value.length;
+
+/**
+ * "Splits" a permutable object into 2 parts:
+ *   1. A simple permutation object containing all simple key-value pairs of the object.
+ *   2. A permutable object containing only multi-value array key-value pairs.
+ *
+ * In this case, "simple" refers to a key-value pair that is either present in every permutation or a
+ * key-value pair that is present in no permutation.
+ *
+ * @param {Permutable} obj - Any permutable object.
+ *
+ * @returns {SplitPermutable} - The resultant object.
+ */
+const splitPermutableObject = (obj: Permutable): SplitPermutable => {
+  return Object.entries(obj).reduce(
+    (current: SplitPermutable, [key, value]) => {
+      // Non-arrays are always added as-is to every permutation.
+      if (!Array.isArray(value)) {
+        return {
+          ...current,
+          permutation: {...current.permutation, [key]: value},
+        };
+      }
+
+      // Empty arrays are excluded from permutations.
+      if (value.length === 0) {
+        return current;
+      }
+
+      // Arrays with a single value are always added to every permutation "unwrapped".
+      if (value.length === 1) {
+        return {
+          ...current,
+          permutation: {...current.permutation, [key]: value[0]},
+        };
+      }
+
+      // Arrays with multiple values dictate the number of permutations and therefore are still
+      // considered "permutable" as they need to undergo an algorithm.
+      return {
+        ...current,
+        permutable: {...current.permutable, [key]: value},
+      } as SplitPermutable;
+    },
+    {permutation: {}, permutable: {}}
+  );
+};
 
 /**
  * Generates a list of permutations given an object.
@@ -55,44 +106,19 @@ export const generatePermutations = (obj: Permutable): Permutation[] => {
     throw new Error(`Invalid argument ${typeof obj}`);
   }
 
-  const numPermutations = getTotalPermutationCount(obj);
+  const splitPermutable = splitPermutableObject(obj);
+  const numPermutations = getTotalPermutationCount(splitPermutable.permutable);
+
   let sequenceLength: number;
 
-  return Object.entries(obj).reduce(
-    (currentPermutations: Permutable[], [key, value]) => {
-      // Non-array values are exactly the same in each permutation.
-      if (!Array.isArray(value)) {
-        return currentPermutations.map(permutation => ({
-          ...permutation,
-          [key]: value,
-        }));
-      }
-
-      // Empty array values should be ignored and are left out of the permutation objects.
-      if (value.length === 0) {
-        return currentPermutations;
-      }
-
-      // Arrays with only 1 value do not impact the number of permutations and therefore are exactly
-      // the same in each permutation.
-      if (value.length === 1) {
-        return currentPermutations.map(permutation => ({
-          ...permutation,
-          [key]: value[0],
-        }));
-      }
-
-      // Finally we have array values with multiple entries, which directly dictate how many permutations we'll have.
-      if (value.length > 1) {
-        sequenceLength = calculateSequenceLength(
-          value,
-          sequenceLength ?? numPermutations
-        );
-        return permutationFn(key, value, currentPermutations, sequenceLength);
-      }
-
-      return currentPermutations;
+  return Object.entries(splitPermutable.permutable).reduce(
+    (currentPermutations: Permutation[], [key, value]) => {
+      sequenceLength = calculateSequenceLength(
+        value,
+        sequenceLength ?? numPermutations
+      );
+      return permutationFn(key, value, currentPermutations, sequenceLength);
     },
-    Array(numPermutations).fill({})
+    Array(numPermutations).fill(splitPermutable.permutation)
   );
 };
