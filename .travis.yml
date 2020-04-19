@@ -31,3 +31,5 @@ jobs:
         email: $EMAIL_ADDRESS
         api_key: $NPM_API_KEY
         skip_cleanup: true
+        on:
+          tags: true
