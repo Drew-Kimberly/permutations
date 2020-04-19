@@ -1,6 +1,7 @@
 # NodeJS Object Permutations
 Function to generate all permutations of data given zero or more arrays associated with properties in an object
 
+[![npm version](https://badge.fury.io/js/%40drewkimberly%2Fpermutations.svg)](https://badge.fury.io/js/%40drewkimberly%2Fpermutations)
 [![Build Status](https://travis-ci.org/Drew-Kimberly/permutations.svg?branch=master)](https://travis-ci.org/Drew-Kimberly/permutations)
 [![Code Style: Google](https://img.shields.io/badge/code%20style-google-blueviolet.svg)](https://github.com/google/gts)
 
