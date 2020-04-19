@@ -23,10 +23,11 @@ jobs:
 
     - stage: publish
       if: tag IS present
-      script: echo "Publishing package version ${TRAVIS_TAG} to NPM"
+      script:
+        - echo "Publishing package to NPM..."
+        - npm prune --production
       deploy:
         provider: npm
-        tag: $TRAVIS_TAG
         email: $EMAIL_ADDRESS
         api_key: $NPM_API_KEY
         skip_cleanup: true
