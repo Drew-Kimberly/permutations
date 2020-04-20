@@ -58,10 +58,11 @@ The above will output:
 
 ## Approach
 The provided permutable object is first split into 2 objects; a _simple_ permutation and a _complex_ permutable.
+
 A _simple_ permutation consists of all key-value pairs that exist in all permutations, i.e:
-    - Non-array value
-    - Array w/ length of 1
-    - Empty array (removed and non-existent in any permutation)
+- Non-array value
+- Array w/ length of 1
+- Empty array (removed and non-existent in any permutation)
     
 A _complex_ permutable consists of all key-value pairs whose value is an array with length > 1.
 
