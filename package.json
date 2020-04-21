@@ -32,5 +32,8 @@
     "jest": "^25.3.0",
     "ts-jest": "^25.4.0",
     "typescript": "~3.8.0"
+  },
+  "dependencies": {
+    "power-cartesian-product": "0.0.6"
   }
 }
