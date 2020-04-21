@@ -1,14 +1,12 @@
 export type Permutable = Record<MapKeys, any>;
+export type PermutableArrayValue = [KeyOf<Permutable>, ValueOf<Permutable>];
+export type PermutableArray = PermutableArrayValue[];
 
-export type Permutation = Record<MapKeys, AnyExceptArray>;
-
-export type ComplexPermutable = Record<MapKeys, []>;
-
-export type SplitPermutable = {
-  permutation: Permutation;
-  permutable: ComplexPermutable;
-};
+export type Permutation = Permutable;
+export type PermutationArrayValue = [KeyOf<Permutation>, ValueOf<Permutation>];
+export type PermutationArray = PermutationArrayValue[];
 
 // Helper Types
 export type MapKeys = string | number;
-export type AnyExceptArray = Exclude<any, []>;
+export type KeyOf<T> = keyof T;
+export type ValueOf<T> = T[keyof T];
