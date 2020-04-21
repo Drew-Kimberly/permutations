@@ -3,7 +3,7 @@
   "ignorePatterns": ["build/"],
   "overrides": [
     {
-      "files": ["src/**/*.spec.ts"],
+      "files": ["test/**/*.spec.ts"],
       "env": {
         "jest": true
       },
