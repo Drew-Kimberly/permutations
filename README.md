@@ -2,14 +2,18 @@
 Function to generate all permutations of data given zero or more arrays associated with properties in an object
 
 [![npm version](https://badge.fury.io/js/%40drewkimberly%2Fpermutations.svg)](https://badge.fury.io/js/%40drewkimberly%2Fpermutations)
-[![Build Status](https://travis-ci.org/Drew-Kimberly/permutations.svg?branch=master)](https://travis-ci.org/Drew-Kimberly/permutations)
-[![Coverage Status](https://coveralls.io/repos/github/Drew-Kimberly/permutations/badge.svg?branch=master)](https://coveralls.io/github/Drew-Kimberly/permutations?branch=master)
+[![Build Status](https://travis-ci.org/Drew-Kimberly/permutations.svg?branch=1.x)](https://travis-ci.org/Drew-Kimberly/permutations)
+[![Coverage Status](https://coveralls.io/repos/github/Drew-Kimberly/permutations/badge.svg?branch=1.x)](https://coveralls.io/github/Drew-Kimberly/permutations?branch=1.x)
 [![Code Style: Google](https://img.shields.io/badge/code%20style-google-blueviolet.svg)](https://github.com/google/gts)
 
 ## Installation
 ```shell script
-npm install @drewkimberly/permutations
+npm install @drewkimberly/permutations@1.x
 ```
+
+## Notice
+The _1.x_ branch is maintained separately and dedicated to a solution using vanilla JS.
+Please check out [2.x](https://github.com/Drew-Kimberly/permutations/tree/2.x) for the latest and greatest.
 
 ## Usage
 ```typescript
