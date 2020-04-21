@@ -1,69 +1,76 @@
-import {generatePermutations} from '../index';
-import {Permutable, Permutation} from '../interfaces';
+import {Permutable, Permutation} from '../../src/interfaces';
 
-describe('Test suite covering generatePermutations()', () => {
-  test.each([
-    'Foo',
-    123,
-    true,
-    false,
-    undefined,
-    null,
-    [1, 2, 3],
-    [{test: '123'}],
-    new Date(),
-  ])('An error is thrown when %s is provided as an arg', arg => {
-    // @ts-ignore
-    expect(() => generatePermutations(arg)).toThrow();
-  });
+export const invalidArgTestCases = [
+  'Foo',
+  123,
+  true,
+  false,
+  undefined,
+  null,
+  [1, 2, 3],
+  [{test: '123'}],
+  new Date(),
+];
 
-  test('An empty object argument generates a single permutation of itself', () => {
-    expect(generatePermutations({})).toEqual([{}]);
-  });
-
-  test('An object with no array parameters generates a single permutation of itself', () => {
-    const obj: Permutable = {
+export const permutables: {
+  description: string;
+  permutable: Permutable;
+  expected: Permutation[];
+}[] = [
+  {
+    description:
+      'An empty object argument generates an empty array with no permutations',
+    permutable: {},
+    expected: [{}],
+  },
+  {
+    description:
+      'An object with no array parameters generates a single permutation of itself',
+    permutable: {
       first: 'foo',
       second: 'bar',
       third: 'baz',
-    };
-
-    expect(generatePermutations(obj)).toEqual([obj]);
-  });
-
-  test('Empty array parameters are not included in the generated permutations list', () => {
-    const obj: Permutable = {
+    },
+    expected: [
+      {
+        first: 'foo',
+        second: 'bar',
+        third: 'baz',
+      },
+    ],
+  },
+  {
+    description:
+      'Empty array parameters are not included in the generated permutations list',
+    permutable: {
       first: 'foo',
       second: [],
       third: 'baz',
-    };
-    const expected: Permutation[] = [
+    },
+    expected: [
       {
         first: 'foo',
         third: 'baz',
       },
-    ];
-
-    expect(generatePermutations(obj)).toEqual(expected);
-  });
-
-  test('An object with all empty array parameters returns an empty object as its only permutation', () => {
-    const obj: Permutable = {
+    ],
+  },
+  {
+    description:
+      'An object with all empty array parameters returns an empty array with no permutations',
+    permutable: {
       first: [],
       second: [],
       third: [],
-    };
-
-    expect(generatePermutations(obj)).toEqual([{}]);
-  });
-
-  test('Permutations for a basic "3x1" permutable object', () => {
-    const obj: Permutable = {
+    },
+    expected: [{}],
+  },
+  {
+    description: 'Permutations for a basic "3x1" permutable object',
+    permutable: {
       foo: [1, 2, 3],
       name: 'Drew',
-    };
-
-    const expected: Permutation[] = [
+    },
+    expected: [
       {
         foo: 1,
         name: 'Drew',
@@ -76,20 +83,18 @@ describe('Test suite covering generatePermutations()', () => {
         foo: 3,
         name: 'Drew',
       },
-    ];
-
-    expect(generatePermutations(obj)).toEqual(expected);
-  });
-
-  test('Permutations for a basic "2x2" permutable object are correctly calculated', () => {
-    const obj: Permutable = {
+    ],
+  },
+  {
+    description:
+      'Permutations for a basic "2x2" permutable object are correctly calculated',
+    permutable: {
       pilot: ['Han Solo', 'Lando Calrissian'],
       copilot: ['Chewbacca', 'Rey'],
       ship: 'Falcon',
       speed: '1.5c',
-    };
-
-    const expected: Permutation[] = [
+    },
+    expected: [
       {
         pilot: 'Han Solo',
         copilot: 'Chewbacca',
@@ -114,18 +119,15 @@ describe('Test suite covering generatePermutations()', () => {
         ship: 'Falcon',
         speed: '1.5c',
       },
-    ];
-
-    expect(generatePermutations(obj)).toEqual(expected);
-  });
-
-  test('Permutations for a basic "3x2" permutable object', () => {
-    const obj: Permutable = {
+    ],
+  },
+  {
+    description: 'Permutations for a basic "3x2" permutable object',
+    permutable: {
       foo: [1, 2, 3],
       name: ['Drew', 'Sam'],
-    };
-
-    const expected: Permutation[] = [
+    },
+    expected: [
       {
         foo: 1,
         name: 'Drew',
@@ -150,13 +152,12 @@ describe('Test suite covering generatePermutations()', () => {
         foo: 3,
         name: 'Sam',
       },
-    ];
-
-    expect(generatePermutations(obj)).toEqual(expected);
-  });
-
-  test('Permutations for a complex "2x0x2x2x1" permutable object are correctly calculated', () => {
-    const obj: Permutable = {
+    ],
+  },
+  {
+    description:
+      'Permutations for a complex "2x0x2x2x1" permutable object are correctly calculated',
+    permutable: {
       coords: [
         [1, 2],
         [3, 4],
@@ -172,9 +173,8 @@ describe('Test suite covering generatePermutations()', () => {
       123: undefined,
       options: [true, false],
       random: [1],
-    };
-
-    const expected: Permutation[] = [
+    },
+    expected: [
       {
         coords: [1, 2],
         people: {
@@ -287,19 +287,16 @@ describe('Test suite covering generatePermutations()', () => {
         options: false,
         random: 1,
       },
-    ];
-
-    expect(generatePermutations(obj)).toEqual(expected);
-  });
-
-  test('Permutations for a basic "2x4x3" permutable object', () => {
-    const obj: Permutable = {
+    ],
+  },
+  {
+    description: 'Permutations for a basic "2x4x3" permutable object',
+    permutable: {
       name: ['Drew', 'Sam'],
       foo: [1, 2, 3, 4],
       bar: [1, 2, 3],
-    };
-
-    const expected: Permutation[] = [
+    },
+    expected: [
       {
         name: 'Drew',
         foo: 1,
@@ -420,32 +417,6 @@ describe('Test suite covering generatePermutations()', () => {
         foo: 4,
         bar: 3,
       },
-    ];
-
-    expect(generatePermutations(obj)).toEqual(expected);
-  });
-});
-
-// describe('Performance Testing', () => {
-//   const getNaturalNumberArrayUpTo = (limit: number) => [
-//     ...Array(limit)
-//       .fill('')
-//       .map((val, idx) => idx + 1),
-//   ];
-//
-//   const testCases = getNaturalNumberArrayUpTo(6).map(val => val.toString());
-//   test.each(testCases)('Performance of 10^%s permutations', pow => {
-//     const obj: Permutable = [...Array(Number(pow)).fill('')].reduce(
-//       (prevObj, val, idx) => ({
-//         ...prevObj,
-//         [idx]: getNaturalNumberArrayUpTo(10),
-//       }),
-//       {}
-//     );
-//
-//     const start = new Date().getTime();
-//     generatePermutations(obj);
-//     const end = new Date().getTime() - start;
-//     console.log(`Calculation of 10^${pow} permutations took ${end}ms`);
-//   });
-// });
+    ],
+  },
+];

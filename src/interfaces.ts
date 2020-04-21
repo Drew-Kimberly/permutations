@@ -7,6 +7,6 @@ export type PermutationArrayValue = [KeyOf<Permutation>, ValueOf<Permutation>];
 export type PermutationArray = PermutationArrayValue[];
 
 // Helper Types
-export type MapKeys = string | number;
-export type KeyOf<T> = keyof T;
-export type ValueOf<T> = T[keyof T];
+type MapKeys = string | number;
+type KeyOf<T> = keyof T;
+type ValueOf<T> = T[keyof T];
