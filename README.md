@@ -63,7 +63,7 @@ where object properties with empty array values can be ignored from the set of p
 ### `getPermutations`
 The `getPermutations` function will return an array of all permutations for the given object.
 ```typescript
-import {getPermutations} from "@drewkimbery/permutations";
+import {generatePermutations} from "@drewkimberly/permutations";
 
 const obj = {
     pilot: ["Han Solo", "Lando Calrissian"],
@@ -72,7 +72,7 @@ const obj = {
     speed: "1.5c"
 };
 
-const permutations = getPermutations(obj);
+const permutations = generatePermutations(obj);
 ```
 
 ### `generatePermutations`
